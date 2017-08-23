@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>The Solar System | Intro</title>
+    <link href="css/layout.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="centerLayout">
+        <div class="container mainbg">
+            <div class="intro-heading c-blue divPos"> నక్షత్ర శాస్త్రజ్ఞుడు: ప్లానెట్ ట్రెక్</div>
+
+            <div class="intro-content c-blue divPos">
+                <p>సౌర కుటుంబం గురించి మీరు ఇప్పటికే నేర్చుకున్నారు. ఇప్పుడు, మీ పరిజ్ఞానాన్ని నక్షత్ర శాస్త్రజ్ఞుడు: ప్లానెట్ ట్రెక్ పూర్తి చేసారు.</p>
+                <p>మన సౌర కుటుంబంలో ప్రతి గ్రహం విభిన్న మూలకాలు మరియు రసాయన సమ్మేళనాలతో చేయబడినాయి. </p>
+                <p>ఈ కార్యకలాపంలో, మీకు ఇవ్వబడిన ఆధారాలను ఉపయోగించి మీరు మూలకాలు మరియు సమ్మేళనాలను తప్పక కనుగొనాలి. మీరు ఎక్కువ అంశాలు సేకరిస్తే, మీరు గెలిచే అవకాశం బాగా ఉంటుంది.</p>
+                <p>మీరు సిద్ధంగా ఉన్నారా? </p>
+            </div>
+
+            <div class="intro-content1 c-white divPos">
+                <p>ఈ కార్యకలాపం యొక్క నియమాలు చదవడానికి <strong>నియమాలు </strong>.</p>
+                <p>బటన్‌ని క్లిక్ చేయండి.  తరువాత, ప్రారంభించడానికి, స్టార్ట్<strong>క్లిక్ చేయండి</strong>.</p>
+            </div>
+
+            <div class="rules-btn divPos"></div>
+            <a href="clue1.html" target="_self">
+                <div class="start-btn divPos"></div>
+            </a>
+
+            <div class="rules-container divPos">
+                <div class="close-btn"></div>
+                <div class="rules-heading c-blue">
+                    ఖగోళ శాస్త్రజ్ఞుడు : నియమాలు
+                </div>
+                <div class="rules-content c-blue">
+                    <ul>
+                        <li>మీకు 10 ఆధారాలు, ఒకటి ఒకసారి ఇవ్వబడుతుంది.</li>
+                        <li>ఒక్కో ఆధారం జాగ్రత్తగా చదవండి మరియు ఇది  గ్రహం  వర్ణిస్తుందో గుర్తించండి.</li>
+                        <li>సరైన గ్రహం క్లిక్ చేయండిసబ్మ మరియు సబ్మిట్ క్లిక్ చేయండి</li>
+                        <li>మీరు సరిగ్గా జవాబిస్తే, మీరు పొందవచ్చు ఒక మూలకం లేదా సమ్మేళనం.</li>
+                        <li>మీరు కనుగొనే అంశాలను, మెరుగైన అవకాశాలు గెలుచుకోవాలి.</li>
+                    </ul>
+                    <span class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script>
+    $(function() {
+        var myscore = 0;
+        localStorage.setItem("planet-score1", myscore);
+        localStorage.setItem("planet-score2", myscore);
+        localStorage.setItem("planet-score3", myscore);
+        localStorage.setItem("planet-score4", myscore);
+        localStorage.setItem("planet-score5", myscore);
+        localStorage.setItem("planet-score6", myscore);
+        localStorage.setItem("planet-score7", myscore);
+        localStorage.setItem("planet-score8", myscore);
+        localStorage.setItem("planet-score9", myscore);
+        localStorage.setItem("planet-score10", myscore);
+
+        $('.rules-btn').click(function() {
+            $('.rules-container').css('display', 'block');
+        });
+
+        $('.close-btn').click(function() {
+            $('.rules-container').css('display', 'none');
+        });
+
+    });
+
+</script>
+
+</html>

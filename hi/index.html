@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>The Solar System | Intro</title>
+    <link href="css/layout.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="centerLayout">
+        <div class="container mainbg">
+            <div class="intro-heading c-blue divPos">एस्ट्रोमर: ग्रह यात्रा</div>
+
+            <div class="intro-content c-blue divPos">
+                <p>आप सौर मंडल के बारे में सीख चुके हैं| अब एस्ट्रोमर: ग्रह यात्रा खेलकर अपने ज्ञान को परखिए|</p>
+                <p>हमारे सौर मंडल का हर ग्रह अलग-अलग तत्वों और रासायनिक यौगिकों से बना है|	</p>
+                <p>इस गतिविधि में आपको संकेतों की मदद से तत्व और यौगिक खोजने हैं| आप जितनी चीजें इकट्ठा करेंगे, आपके जीतने की सम्भावना भी उतनी ही बढ़ेगी|</p>
+                <p>क्या आप तैयार हैं?</p>
+            </div>
+
+            <div class="intro-content1 c-white divPos">
+                <p>गतिविधि के <strong>नियम</strong> जानने के लिए नियम बटन पर क्लिक करें|</p>
+                <p>फिर गतिविधि शुरु करने के लिए <strong>शुरु करें</strong> बटन पर क्लिक करें|</p>
+            </div>
+
+            <div class="rules-btn divPos"></div>
+            <a href="clue1.html" target="_self">
+                <div class="start-btn divPos"></div>
+            </a>
+
+            <div class="rules-container divPos">
+                <div class="close-btn"></div>
+                <div class="rules-heading c-blue">
+                    एस्ट्रोमर: ग्रह यात्रा: गतिविधि नियम
+                </div>
+                <div class="rules-content c-blue">
+                    <ul>
+                        <li>आपको एक-एक करके दस संकेत दिए जाएंगे।</li>
+                        <li>प्रत्येक संकेत को पढ़ें और पहचानें कि वह किस ग्रह का वर्णन कर रहा है।</li>
+                        <li>सही ग्रह पर क्लिक करें और अपना उत्तर जाँचने के लिए <strong>जमा करें</strong> बटन पर क्लिक करें।</li>
+                        <li>यदि आप सही उत्तर देते हैं, तो आप एक तत्व या परिसर इकट्ठा करते हैं।</li>
+                        <li>आप जितनी चीजें इकट्ठा करेंगे, आपके जीतने की सम्भावना भी उतनी ही बढ़ेगी|</li>
+                    </ul>
+                    <span class="c-white">आगे जाने के लिए X पर क्लिक करें।</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script>
+    $(function() {
+        var myscore = 0;
+        localStorage.setItem("planet-score1", myscore);
+        localStorage.setItem("planet-score2", myscore);
+        localStorage.setItem("planet-score3", myscore);
+        localStorage.setItem("planet-score4", myscore);
+        localStorage.setItem("planet-score5", myscore);
+        localStorage.setItem("planet-score6", myscore);
+        localStorage.setItem("planet-score7", myscore);
+        localStorage.setItem("planet-score8", myscore);
+        localStorage.setItem("planet-score9", myscore);
+        localStorage.setItem("planet-score10", myscore);
+
+        $('.rules-btn').click(function() {
+            $('.rules-container').css('display', 'block');
+        });
+
+        $('.close-btn').click(function() {
+            $('.rules-container').css('display', 'none');
+        });
+
+    });
+
+</script>
+
+</html>

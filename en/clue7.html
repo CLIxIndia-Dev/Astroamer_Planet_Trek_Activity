@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>The Solar System | Clue 7</title>
+    <link href="css/layout.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="centerLayout">
+        <div class="container cluebg">
+            <div class="rules-btn1 divPos"></div>
+            <div class="rules-container divPos">
+                <div class="close-btn"></div>
+                <div class="rules-heading c-blue">
+                    AstRoamer: Planet Trek: Rules
+                </div>
+                <div class="rules-content c-blue">
+                    <ul>
+                        <li>You will be given 10 clues, one at a time.</li>
+                        <li>Read each clue and identify which planet it describes.</li>
+                        <li>Click the correct planet and click <strong>Submit</strong> to check your answer.</li>
+                        <li>If you answer correctly, you collect one element or compound.</li>
+                        <li>The more items you find, the better your chances of winning.</li>
+                    </ul>
+                    <span class="c-white">Click X to continue.</span>
+                </div>
+            </div>
+            <div class="clueNo divPos c-blue">Clue 7</div>
+            <div class="clue-content c-blue divPos" style="font-size: 13px !important;">
+                <p>The Indian Space Research Organization (ISRO)’s probe is orbiting this planet to study its atmosphere and its surface. Visit this planet to collect <strong>Iron Oxide (Fe<sub>2</sub>O<sub>3</sub>)</strong>.</p>
+            </div>
+            <div class="clue-content1 c-white divPos">
+                <p>Click the correct planet and click <strong>Submit</strong> to check your answer.</p>
+            </div>
+            <div class="planet mercury">
+                <img src="common/PLANETS/Mercury.png" id="planet-Mercury">
+            </div>
+            <div class="planet venus">
+                <img src="common/PLANETS/Venus.png" id="planet-Venus">
+            </div>
+            <div class="planet earth">
+                <img src="common/PLANETS/Earth.png" id="planet-Earth">
+            </div>
+            <div class="planet mars">
+                <img src="common/PLANETS/Mars.png" id="planet-Mars">
+            </div>
+            <div class="planet jupiter">
+                <img src="common/PLANETS/Jupiter.png" id="planet-Jupiter">
+            </div>
+            <div class="planet saturn">
+                <img src="common/PLANETS/Saturn.png" id="planet-Saturn">
+            </div>
+            <div class="planet uranus">
+                <img src="common/PLANETS/Uranus.png" id="planet-Uranus">
+            </div>
+            <div class="planet neptune">
+                <img src="common/PLANETS/Neptune.png" id="planet-Neptune">
+            </div>
+            <div class="planet pluto">
+                <img src="common/PLANETS/Pluto.png" id="planet-Pluto">
+            </div>
+            <div class="tube-container divPos">
+                <div class="cap capAnim divPos" style="left: 301px !important;">
+                    <img src="common/cap.png">
+                </div>
+                <div class="tube tube1 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-n">
+                </div>
+                <div class="tube tube2 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-h2so4">
+                </div>
+                <div class="tube tube3 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-h">
+                </div>
+                <div class="tube tube4 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-he">
+                </div>
+                <div class="tube tube5 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-na">
+                </div>
+                <div class="tube tube6 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-ch4">
+                </div>
+                <div class="tube tube7 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-fe2o3">
+                </div>
+                <div class="tube tube8 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-nh3">
+                </div>
+                <div class="tube tube9 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-co2">
+                </div>
+                <div class="tube tube10 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-co">
+                </div>
+            </div>
+            <div class="submit-btn divPos"></div>
+            <div class="next-btn divPos"></div>
+            <div class="feedback-popup divPos">
+                <div class="close-btn-popup"></div>
+                <div class="popup-head c-blue">That is not correct.</div>
+                <div class="popup-content c-blue">
+                    <!--Message Here-->
+                </div>
+            </div>
+            <div class="feedback-popup-small divPos">
+                <div class="close-btn-popup close-btn-popup-small"></div>
+                <div class="popup-small-head c-blue">That is not correct.</div>
+                <div class="popup-small-content c-blue">
+                    <!--Message Here-->
+                </div>
+            </div>
+            <div class="allOut divPos"></div>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/others.js"></script>
+<script>
+    var answer = 'Mars';
+    var mytube = 'fe2o3';
+    localStorage.setItem("planet-score7", '0');
+    $(function() {
+        $('.submit-btn').click(function() {
+            myTable = '';
+            myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
+            myTable = myTable + '<tr>';
+            myTable = myTable + '<td>Number of Moons</td>';
+            myTable = myTable + '<td>2</td>';
+            myTable = myTable + '</tr>';
+            myTable = myTable + '<tr>';
+            myTable = myTable + '<td>Rotation Period</td>';
+            myTable = myTable + '<td>1.03 Earth days</td>';
+            myTable = myTable + '</tr>';
+            myTable = myTable + '<tr>';
+            myTable = myTable + '<td>Revolution Period</td>';
+            myTable = myTable + '<td>1.88 Earth years</td>';
+            myTable = myTable + '</tr>';
+            myTable = myTable + '<tr>';
+            myTable = myTable + '<td>Average Distance from the Sun</td>';
+            myTable = myTable + '<td>1.52 AU</td>';
+            myTable = myTable + '</tr>';
+            myTable = myTable + '</table>';
+            if (attempt == 0) {
+                if (curPlanet != answer) {
+                    $('.popup-small-head').html('That’s not correct.');
+                    $('.popup-small-content').html('<p>Here’s another clue.<br>When seen with naked eyes, this planet looks red because of the iron oxide on its surface.<br>Try again.</p><p class="c-white">Click X to continue.</p>');
+                    $('.feedback-popup-small').css('display', 'block');
+                } else {
+                    $('.popup-head').html('That’s correct.');
+                    myhtml = '<p>Mars is the fourth planet from the Sun and it is visible to the naked eye. It is called the Red Planet because the iron oxide on its surface gives it a reddish appearance.</p>';
+                    myhtml = myhtml + myTable;
+                    myhtml = myhtml + '<p class="c-white">Click X to continue.</p>';
+                    $('.popup-content').html(myhtml);
+                    $('.feedback-popup').css('display', 'block');
+                }
+            } else {
+                if (curPlanet != answer) {
+                    $('.popup-head').html('Sorry!');
+                    myhtml = '<p>The correct answer is Mars.<br>Mars is the fourth planet from the Sun andt is visible to the naked eye. It is called the Red Planet because the iron oxide on its surface gives it a reddish appearance.</p>';
+                    myhtml = myhtml + myTable;
+                    myhtml = myhtml + '<p class="c-white">Click X to continue.</p>';
+                    $('.popup-content').html(myhtml);
+                    $('.feedback-popup').css('display', 'block');
+                } else {
+                    $('.popup-head').html('That’s correct.');
+                    myhtml = '<p>Mars is the fourth planet from the Sun and it is visible to the naked eye. It is called the Red Planet because the iron oxide on its surface gives it a reddish appearance.</p>';
+                    myhtml = myhtml + myTable;
+                    myhtml = myhtml + '<p class="c-white">Click X to continue.</p>';
+                    $('.popup-content').html(myhtml);
+                    $('.feedback-popup').css('display', 'block');
+                }
+            }
+            attempt++;
+        });
+        $('.next-btn').click(function() {
+            if ($(this).css('opacity') == 1) {
+                window.open('clue8.html', '_self');
+            }
+        });
+    });
+
+    function updateScore() {
+        localStorage.setItem("planet-score7", '1');
+        $('.capAnim').addClass('cap-fix');
+        $('#tube-' + mytube).attr('src', 'common/TUBES/' + mytube + '.png');
+        $('.allOut').css('display', 'block');
+    }
+
+</script>
+
+</html>

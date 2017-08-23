@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>The Solar System | Intro</title>
+    <link href="css/layout.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="centerLayout">
+        <div class="container mainbg">
+            <div class="intro-heading c-blue divPos">AstRoamer: Planet Trek</div>
+
+            <div class="intro-content c-blue divPos">
+                <p>You have already learnt about the solar system. Now, test your knowledge by playing AstRoamer: Planet Trek.</p>
+                <p>Every planet in our solar system is made up of various elements and chemical compounds.</p>
+                <p>In this activity, you must find the elements and compounds using the clues given to you. The more items you collect, the better your chance of winning.</p>
+                <p>Are you ready?</p>
+            </div>
+
+            <div class="intro-content1 c-white divPos">
+                <p>Click the <strong>Rules</strong> button to read the rules of the activity.</p>
+                <p>Then, click <strong>Start</strong> to begin.</p>
+            </div>
+
+            <div class="rules-btn divPos"></div>
+            <a href="clue1.html" target="_self">
+                <div class="start-btn divPos"></div>
+            </a>
+
+            <div class="rules-container divPos">
+                <div class="close-btn"></div>
+                <div class="rules-heading c-blue">
+                    AstRoamer: Planet Trek: Rules
+                </div>
+                <div class="rules-content c-blue">
+                    <ul>
+                        <li>You will be given 10 clues, one at a time.</li>
+                        <li>Read each clue and identify which planet it describes.</li>
+                        <li>Click the correct planet and click <strong>Submit</strong> to check your answer.</li>
+                        <li>If you answer correctly, you collect one element or compound.</li>
+                        <li>The more items you find, the better your chances of winning.</li>
+                    </ul>
+                    <span class="c-white">Click X to continue.</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script>
+    $(function() {
+        var myscore = 0;
+        localStorage.setItem("planet-score1", myscore);
+        localStorage.setItem("planet-score2", myscore);
+        localStorage.setItem("planet-score3", myscore);
+        localStorage.setItem("planet-score4", myscore);
+        localStorage.setItem("planet-score5", myscore);
+        localStorage.setItem("planet-score6", myscore);
+        localStorage.setItem("planet-score7", myscore);
+        localStorage.setItem("planet-score8", myscore);
+        localStorage.setItem("planet-score9", myscore);
+        localStorage.setItem("planet-score10", myscore);
+
+        $('.rules-btn').click(function() {
+            $('.rules-container').css('display', 'block');
+        });
+
+        $('.close-btn').click(function() {
+            $('.rules-container').css('display', 'none');
+        });
+
+    });
+
+</script>
+
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Demo Astronomy | Result</title>
+    <link href="css/layout.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="centerLayout">
+        <div class="container resultbg">
+            <div class="resultMedal divPos">
+                <img src="common/EMPTY_MEDAL.png" id="mymedal">
+            </div>
+            <div class="resultText divPos c-white">
+            </div>
+            <div class="score-panel1 divPos">
+                <div class="score1 c-blue" style="line-height: 30px !important; text-align: center; width: 200px;"></div>
+            </div>
+            <div class="resultInstruction divPos c-white">You have completed AstRoamer: Planet Trek. Let’s see how you did.</div>
+            <div class="resultInstruction1 divPos c-white">Click <strong>Next</strong> to see the list of elements and compounds
+                <br>and the planets they are found on.</div>
+
+            <div class="tube-container divPos" style="bottom: 70px !important; left: 145px !important;">
+                <div class="cap capAnim divPos" style="left: 450px !important;">
+                    <img src="common/cap.png">
+                </div>
+                <div class="tube tube1 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-n">
+                </div>
+                <div class="tube tube2 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-h2so4">
+                </div>
+                <div class="tube tube3 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-h">
+                </div>
+                <div class="tube tube4 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-he">
+                </div>
+                <div class="tube tube5 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-na">
+                </div>
+                <div class="tube tube6 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-ch4">
+                </div>
+                <div class="tube tube7 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-fe2o3">
+                </div>
+                <div class="tube tube8 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-nh3">
+                </div>
+                <div class="tube tube9 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-co2">
+                </div>
+                <div class="tube tube10 divPos">
+                    <img src="common/TUBES/tube.png" id="tube-co">
+                </div>
+            </div>
+            <div class="next-btn next-btn-roll divPos" style="opacity: 1 !important; bottom: 85px !important;"></div>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/others.js"></script>
+<script>
+    $(function() {
+
+        show1 = parseInt(localStorage.getItem("planet-score1"));
+        show2 = parseInt(localStorage.getItem("planet-score2"));
+        show3 = parseInt(localStorage.getItem("planet-score3"));
+        show4 = parseInt(localStorage.getItem("planet-score4"));
+        show5 = parseInt(localStorage.getItem("planet-score5"));
+        show6 = parseInt(localStorage.getItem("planet-score6"));
+        show7 = parseInt(localStorage.getItem("planet-score7"));
+        show8 = parseInt(localStorage.getItem("planet-score8"));
+        show9 = parseInt(localStorage.getItem("planet-score9"));
+        show10 = parseInt(localStorage.getItem("planet-score10"));
+
+        showScore = show1 + show2 + show3 + show4 + show5 + show6 + show7 + show8 + show9 + show10;
+
+        if (showScore >= 10) {
+            $('#mymedal').attr('src', 'common/GOLD_MEDAL.png');
+            $('.resultText').html('Congratulations! <br>You collected all the elements and compounds.');
+        } else if (showScore == 8 || showScore == 9) {
+            $('#mymedal').attr('src', 'common/SILVER_MEDAL.png');
+            $('.resultText').html('Great! <br>You collected most of the elements and compounds.');
+        } else if (showScore == 6 || showScore == 7) {
+            $('#mymedal').attr('src', 'common/BRONZE_MEDAL.png');
+            $('.resultText').html('Well done! <br>You collected more than half the elements and compounds.');
+        } else if (showScore <= 5) {
+            $('.resultText').html('Oops, you missed quite a few elements and compounds. Try harder next time!');
+        }
+        $("#mymedal").animate({
+            opacity: 1
+        }, 2000, function() {
+            //function
+        });
+        $('.next-btn').click(function() {
+            window.open('lastscreen.html', '_self');
+        });
+    });
+
+</script>
+
+</html>
