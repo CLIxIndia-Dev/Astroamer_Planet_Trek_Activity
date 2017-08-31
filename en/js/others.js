@@ -15,7 +15,7 @@ $(function () {
         if (curPlanet != '') {
             $('#planet-' + oldPlanet).attr('src', 'common/PLANETS/' + oldPlanet + '.png');
         }
-        $(this).attr('src', 'common/PLANETS/' + curPlanet + '_Glow.png');
+        $(this).attr('src', 'common/PLANETS/' + curPlanet + '_GLOW.png');
         oldPlanet = curPlanet;
     });
     $('.close-btn-popup').click(function () {
