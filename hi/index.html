@@ -14,7 +14,7 @@
 
             <div class="intro-content c-blue divPos">
                 <p>आप सौर मंडल के बारे में सीख चुके हैं| अब एस्ट्रोमर: ग्रह यात्रा खेलकर अपने ज्ञान को परखिए|</p>
-                <p>हमारे सौर मंडल का हर ग्रह अलग-अलग तत्वों और रासायनिक यौगिकों से बना है|	</p>
+                <p>हमारे सौर मंडल का हर ग्रह अलग-अलग तत्वों और रासायनिक यौगिकों से बना है| </p>
                 <p>इस गतिविधि में आपको संकेतों की मदद से तत्व और यौगिक खोजने हैं| आप जितनी चीजें इकट्ठा करेंगे, आपके जीतने की सम्भावना भी उतनी ही बढ़ेगी|</p>
                 <p>क्या आप तैयार हैं?</p>
             </div>
@@ -25,7 +25,7 @@
             </div>
 
             <div class="rules-btn divPos"></div>
-            <a href="clue1.html" target="_self">
+            <a onclick="start();">
                 <div class="start-btn divPos"></div>
             </a>
 
@@ -54,8 +54,10 @@
 </body>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
-    $(function() {
+    $(function () {
         var myscore = 0;
         localStorage.setItem("planet-score1", myscore);
         localStorage.setItem("planet-score2", myscore);
@@ -68,15 +70,21 @@
         localStorage.setItem("planet-score9", myscore);
         localStorage.setItem("planet-score10", myscore);
 
-        $('.rules-btn').click(function() {
+        $('.rules-btn').click(function () {
             $('.rules-container').css('display', 'block');
         });
 
-        $('.close-btn').click(function() {
+        $('.close-btn').click(function () {
             $('.rules-container').css('display', 'none');
         });
-
+        setuserdetail();
     });
+
+
+    function start() {
+        planet.start('en');
+        window.location.href = "clue1.html";
+    }
 
 </script>
 

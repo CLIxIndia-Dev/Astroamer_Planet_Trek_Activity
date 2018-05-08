@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 
 <head>
@@ -25,7 +25,7 @@
             </div>
 
             <div class="rules-btn divPos"></div>
-            <a href="clue1.html" target="_self">
+            <a onclick="start();">
                 <div class="start-btn divPos"></div>
             </a>
 
@@ -54,8 +54,10 @@
 </body>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
-    $(function() {
+    $(function () {
         var myscore = 0;
         localStorage.setItem("planet-score1", myscore);
         localStorage.setItem("planet-score2", myscore);
@@ -68,16 +70,21 @@
         localStorage.setItem("planet-score9", myscore);
         localStorage.setItem("planet-score10", myscore);
 
-        $('.rules-btn').click(function() {
+        $('.rules-btn').click(function () {
             $('.rules-container').css('display', 'block');
         });
 
-        $('.close-btn').click(function() {
+        $('.close-btn').click(function () {
             $('.rules-container').css('display', 'none');
         });
-
+        setuserdetail();
     });
 
+
+    function start() {
+        planet.start('en');
+        window.location.href = "clue1.html";
+    }
 </script>
 
 </html>

@@ -32,7 +32,7 @@
                 <p>जमी हुई गैसों से बने इस ग्रह को देखने के लिए आपको दूरदर्शी चाहिए होगा| <strong>हीलियम (He)</strong> इकट्ठा करने के लिए इस ग्रह पर जाइए|</p>
             </div>
             <div class="clue-content1 c-white divPos">
-                 <p>सही ग्रह पर क्लिक करके <strong>जमा करें </strong> बटन पर क्लिक करें|</p>
+                <p>सही ग्रह पर क्लिक करके <strong>जमा करें </strong> बटन पर क्लिक करें|</p>
             </div>
             <div class="planet mercury">
                 <img src="common/PLANETS/Mercury.png" id="planet-Mercury">
@@ -119,11 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     var answer = 'Neptune';
     var mytube = 'he';
+    var qid = 4;
     localStorage.setItem("planet-score4", '0');
+    var lng = 'en';
     $(function() {
+        planet.readData();
+        planet.addQuestion('जमी हुई गैसों से बने इस ग्रह को देखने के लिए आपको दूरदर्शी चाहिए होगा| हीलियम (He) इकट्ठा करने के लिए इस ग्रह पर जाइए|');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -144,11 +150,12 @@
             myTable = myTable + '<td>30.06 खगोलीय इकाई</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('गलत जवाब|');
                     $('.popup-small-content').html('<p>यह दूसरा संकेत देखिए|<br>इस ठन्डे नीले ग्रह पर सौर मंडल के किसी भी ग्रह से ज्यादा तेज हवाएं चलती हैं| फिर से कोशिश कीजिए|</p><p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('बहुत खूब!');
                     myhtml = '<p>वरुण सूर्य से आठवां ग्रह है| यह नीला ग्रह केवल दूरदर्शी से ही दिखाई देता है| यह दूसरा सबसे ठंडा ग्रह है, मगर इसपर किसी भी ग्रह से ज्यादा तेज हवाएं चलती हैं|</p>';
@@ -156,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -165,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('बहुत खूब!');
                     myhtml = '<p>वरुण सूर्य से आठवां ग्रह है| यह नीला ग्रह केवल दूरदर्शी से ही दिखाई देता है| यह दूसरा सबसे ठंडा ग्रह है, मगर इसपर किसी भी ग्रह से ज्यादा तेज हवाएं चलती हैं|</p>';
@@ -172,12 +181,16 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('clue5.html', '_self');
             }
         });

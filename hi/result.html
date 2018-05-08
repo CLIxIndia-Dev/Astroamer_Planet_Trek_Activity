@@ -19,7 +19,7 @@
                 <div class="score1 c-blue" style="line-height: 30px !important; text-align: center; width: 200px;"></div>
             </div>
             <div class="resultInstruction divPos c-white">आपने एस्ट्रोमर: ग्रह यात्रा खेल पूरा कर लिया| चलिए देखते हैं आपका प्रदर्शन कैसा रहा|</div>
-            <div class="resultInstruction1 divPos c-white">तत्वों और यौगिकों को उनके ग्रहों के साथ एक तालिका में देखने के लिए  <strong>अगला </strong> बटन पर क्लिक कीजिए|</div>
+            <div class="resultInstruction1 divPos c-white">तत्वों और यौगिकों को उनके ग्रहों के साथ एक तालिका में देखने के लिए <strong>अगला </strong> बटन पर क्लिक कीजिए|</div>
 
             <div class="tube-container divPos" style="bottom: 70px !important; left: 145px !important;">
                 <div class="cap capAnim divPos" style="left: 450px !important;">
@@ -63,9 +63,11 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     $(function() {
-
+        planet.readData();
         show1 = parseInt(localStorage.getItem("planet-score1"));
         show2 = parseInt(localStorage.getItem("planet-score2"));
         show3 = parseInt(localStorage.getItem("planet-score3"));
@@ -78,6 +80,12 @@
         show10 = parseInt(localStorage.getItem("planet-score10"));
 
         showScore = show1 + show2 + show3 + show4 + show5 + show6 + show7 + show8 + show9 + show10;
+        if (showScore >= 0 && showScore <= 9) {
+            planet.end('0' + showScore);
+        } else {
+            planet.end(showScore);
+        }
+        planet.updateScore();
 
         if (showScore >= 10) {
             $('#mymedal').attr('src', 'common/GOLD_MEDAL.png');

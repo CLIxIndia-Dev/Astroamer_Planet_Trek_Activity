@@ -119,11 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     var answer = 'Pluto';
     var mytube = 'co';
+    var qid = 10;
     localStorage.setItem("planet-score10", '0');
+    var lng = 'en';
     $(function() {
+        planet.readData();
+        planet.addQuestion('सूर्य की रोशनी को पृथ्वी तक पहुंचने में 8 मिनट लगते हैं, लेकिन इस ग्रह तक पहुंचने में उसे 5.3 घंटे लग जाते हैं| कार्बन मोनोऑक्साइड (CO) इकट्ठा करने के लिए इस ग्रह पर जाइए|');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -144,11 +150,12 @@
             myTable = myTable + '<td>39.48 खगोलीय इकाई</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('गलत जवाब|');
                     $('.popup-small-content').html('<p>यह दूसरा संकेत देखिए|<br>यह बौना ग्रह सूर्य से सबसे दूर है| फिर से कोशिश कीजिए|</p><p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>प्लूटो एक बौना ग्रह है और सूर्य से सबसे दूर (नौवें स्थान पर) है| यह नंगी आंखों से कभी नहीं दिखता है|</p>';
@@ -156,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -165,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>प्लूटो एक बौना ग्रह है और सूर्य से सबसे दूर (नौवें स्थान पर) है| यह नंगी आंखों से कभी नहीं दिखता है|</p>';
@@ -172,12 +181,16 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('result.html', '_self');
             }
         });

@@ -119,11 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     var answer = 'Earth';
     var mytube = 'n';
+    var qid = 1;
     localStorage.setItem("planet-score1", '0');
+    var lng = 'en';
     $(function() {
+        planet.readData();
+        planet.addQuestion('नाइट्रोजन और ऑक्सीजन से भरपूर यह ग्रह बुद्धिमता विकसित कर चुके जीवों का घर है| नाइट्रोजन (N) इकट्ठा करने के लिए इस ग्रह पर जाइए|');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -144,11 +150,12 @@
             myTable = myTable + '<td>1 खगोलीय इकाई (150×10<sup>6</sup> km)</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('गलत जवाब|');
                     $('.popup-small-content').html('<p> यह दूसरा संकेत देखिए|<br>इस ग्रह का केवल एक प्राकृतिक उपग्रह है|<br>फिर से कोशिश कीजिए|</p><p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>हम जिस ग्रह पर रहते हैं उसका नाम पृथ्वी है| यह सूर्य से तीसरा ग्रह है|.</p>';
@@ -156,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -165,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>हम जिस ग्रह पर रहते हैं उसका नाम पृथ्वी है| यह सूर्य से तीसरा ग्रह है|.</p>';
@@ -172,12 +181,16 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('clue2.html', '_self');
             }
         });

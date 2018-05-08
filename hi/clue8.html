@@ -119,11 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     var answer = 'Saturn';
     var mytube = 'nh3';
+    var qid = 8;
     localStorage.setItem("planet-score8", '0');
+    var lng = 'en';
     $(function() {
+        planet.readData();
+        planet.addQuestion('भले ही यह सौर मंडल का दूसरा सबसे बड़ा ग्रह है, लेकिन पानी में रखने पर यह तैरने लगेगा| अमोनिया (NH3) इकट्ठा करने के लिए इस ग्रह पर जाइए|');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -144,11 +150,12 @@
             myTable = myTable + '<td>9.54 खगोलीय इकाई</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('गलत जवाब|');
                     $('.popup-small-content').html('<p>यह दूसरा संकेत देखिए|<br>अगर आप एक दूरदर्शी से देखेंगे, तो आपको इस ग्रह के चारों ओर छल्ले (वलय) दिखाई देंगे| फिर से कोशिश कीजिए|</p><p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>शनि सूर्य से छठा ग्रह है| यह नंगी आंखों से दिखाई देता है| अगर आप एक दूरदर्शी से देखेंगे, तो आपको इस ग्रह के चारों ओर छल्ले (वलय) दिखाई देंगे|</p><p>शनि का घनत्व पानी के घनत्व से कम है| इसका मतलब है कि यह पानी पर तैरेगा|</p>';
@@ -156,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -165,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>शनि सूर्य से छठा ग्रह है| यह नंगी आंखों से दिखाई देता है| अगर आप एक दूरदर्शी से देखेंगे, तो आपको इस ग्रह के चारों ओर छल्ले (वलय) दिखाई देंगे|</p><p>शनि का घनत्व पानी के घनत्व से कम है| इसका मतलब है कि यह पानी पर तैरेगा|</p>';
@@ -172,12 +181,16 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('clue9.html', '_self');
             }
         });

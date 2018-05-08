@@ -119,11 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     var answer = 'Saturn';
     var mytube = 'nh3';
+    var qid = 8;
     localStorage.setItem("planet-score8", '0');
+    var lng = 'te';
     $(function() {
+        planet.readData();
+        planet.addQuestion('ఇది సౌర కుటుంబంలో రెండవ అతిపెద్దది అయినా, ఈ గ్రహం నీటి పైన తేలుతుంది. అమ్మోనియా (NH3)సేకరించడానికి ఈ గ్రహాన్ని సందర్శించండి.');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -144,11 +150,12 @@
             myTable = myTable + '<td>9.54 ఎయు</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('అది సరియైనది కాదు.');
                     $('.popup-small-content').html('<p>ఇక్కడ ఇంకొక ఆధారం ఉన్నది.<br>మీరు ఒక టెలిస్కోప్ గుండా చూస్తే, ఈ గ్రహం చుట్టూ మీరు వలయాలను చూస్తారు. మళ్లీ ప్రయత్నించండి.</p><p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('అది సరియైనది.');
                     myhtml = '<p>సూర్యుడి నుండి ఆరవ గ్రహం శని గ్రహం. ఇది మన కంటికి కనిపిస్తుంది.  మీరు ఒక టెలిస్కోప్ గుండా చూస్తే, ఈ గ్రహం చుట్టూ మీరు వలయాలను చూస్తారు.</p><p>శని గ్రహం యొక్క సాంద్రత నీటి సాంద్రత కన్నా తక్కువ అంటే, ఇది నీటపైన తేలుతుందని అర్ధం.</p>';
@@ -156,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -165,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('అది సరియైనది.');
                     myhtml = '<p>సూర్యుడి నుండి ఆరవ గ్రహం శని గ్రహం. ఇది మన కంటికి కనిపిస్తుంది.  మీరు ఒక టెలిస్కోప్ గుండా చూస్తే, ఈ గ్రహం చుట్టూ మీరు వలయాలను చూస్తారు.</p><p>శని గ్రహం యొక్క సాంద్రత నీటి సాంద్రత కన్నా తక్కువ అంటే, ఇది నీటపైన తేలుతుందని అర్ధం.</p>';
@@ -172,12 +181,16 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('clue9.html', '_self');
             }
         });

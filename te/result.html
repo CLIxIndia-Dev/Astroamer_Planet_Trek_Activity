@@ -1,4 +1,9 @@
-<!doctype html>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script><script src="js/planet.js"></script>
+<script src="js/cookie.js"></script><script src="js/planet.js"></script>
+<script src="js/cookie.js"></script><script src="js/planet.js"></script>
+<script src="js/cookie.js"></script><script src="js/planet.js"></script>
+<script src="js/cookie.js"></script><!doctype html>
 <html>
 
 <head>
@@ -63,9 +68,11 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="../scripts/planet.js"></script>
+<script src="../scripts/cookie.js"></script>
 <script>
     $(function() {
-
+        planet.readData();
         show1 = parseInt(localStorage.getItem("planet-score1"));
         show2 = parseInt(localStorage.getItem("planet-score2"));
         show3 = parseInt(localStorage.getItem("planet-score3"));
@@ -78,6 +85,13 @@
         show10 = parseInt(localStorage.getItem("planet-score10"));
 
         showScore = show1 + show2 + show3 + show4 + show5 + show6 + show7 + show8 + show9 + show10;
+        if (showScore >= 0 && showScore <= 9) {
+            planet.end('0' + showScore);
+        } else {
+            planet.end(showScore);
+        }
+        planet.updateScore();
+
 
         if (showScore >= 10) {
             $('#mymedal').attr('src', 'common/GOLD_MEDAL.png');

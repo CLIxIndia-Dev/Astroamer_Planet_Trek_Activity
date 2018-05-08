@@ -119,12 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     var answer = 'Venus';
     var mytube = 'h2so4';
+    var qid = 2;
     localStorage.setItem("planet-score2", '0');
-    
+    var lng = 'en';
     $(function() {
+        planet.readData();
+        planet.addQuestion('यह ग्रह पूर्व से पश्चिम की ओर घूर्णन करता है| सूर्य को पश्चिम से उगते हुए देखना कितना अनोखा नजारा होगा! सल्फ्यूरिक अम्ल (H2SO4) इकट्ठा करने के लिए इस ग्रह पर जाइए|');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -145,11 +150,12 @@
             myTable = myTable + '<td>0.72 खगोलीय इकाई</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('गलत जवाब|');
                     $('.popup-small-content').html('<p>यह दूसरा संकेत देखिए|<br>चन्द्रमा के बाद यह रात के आकाश में दूसरा सबसे चमकीला खगोलीय पिंड है||<br>फिर से कोशिश कीजिए|.</p><p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>सही जवाब शुक्र है|<br>सूर्य से दूसरा सबसे नजदीक ग्रह शुक्र है| यह हमें नंगी आंखों से भी दिख जाता है| चन्द्रमा के बाद यह रात के आकाश में दूसरा सबसे चमकीला खगोलीय पिंड है|</p>';
@@ -157,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -166,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>सही जवाब शुक्र है|<br>सूर्य से दूसरा सबसे नजदीक ग्रह शुक्र है| यह हमें नंगी आंखों से भी दिख जाता है| चन्द्रमा के बाद यह रात के आकाश में दूसरा सबसे चमकीला खगोलीय पिंड है|</p>';
@@ -173,18 +181,23 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('clue3.html', '_self');
             }
         });
     });
 
     function updateScore() {
+
         localStorage.setItem("planet-score2", '1');
         $('.capAnim').addClass('cap-fix');
         $('#tube-' + mytube).attr('src', 'common/TUBES/' + mytube + '.png');

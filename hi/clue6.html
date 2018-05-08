@@ -119,11 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     var answer = 'Uranus';
     var mytube = 'ch4';
+    var qid = 6;
     localStorage.setItem("planet-score6", '0');
+    var lng = 'en';
     $(function() {
+        planet.readData();
+        planet.addQuestion('अपनी धुरी के 97 डिग्री झुकाव के कारण यह ग्रह लगभग अपने किनारे पर लुढ़कता हुआ गति करता है| मीथेन (CH4) इकट्ठा करने के लिए इस ग्रह पर जाइए|');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -144,11 +150,12 @@
             myTable = myTable + '<td>19.22 खगोलीय इकाई</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('गलत जवाब|');
                     $('.popup-small-content').html('<p>यह दूसरा संकेत देखिए|<br>इसके 27 प्राकृतिक उपग्रह और 13 छल्ले (वलय) हैं, मगर आप इस ग्रह को नंगी आंखों से बहुत मुश्किल से देख पाएंगे|<br>फिर से कोशिश कीजिए|</p><p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>अरुण हमारे सौर मंडल का सातवां ग्रह है| इसके 27 प्राकृतिक उपग्रह और 13 छल्ले (वलय) हैं|<br>यह नंगी आंखों से बहुत धुंधला दिखता है|</p>';
@@ -156,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -165,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>अरुण हमारे सौर मंडल का सातवां ग्रह है| इसके 27 प्राकृतिक उपग्रह और 13 छल्ले (वलय) हैं|<br>यह नंगी आंखों से बहुत धुंधला दिखता है|</p>';
@@ -172,12 +181,16 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('clue7.html', '_self');
             }
         });

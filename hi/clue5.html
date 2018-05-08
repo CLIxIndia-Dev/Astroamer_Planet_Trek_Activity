@@ -119,11 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     var answer = 'Mercury';
     var mytube = 'na';
+    var qid = 5;
     localStorage.setItem("planet-score5", '0');
+    var lng = 'en';
     $(function() {
+        planet.readData();
+        planet.addQuestion('भले ही यह सबसे छोटा ग्रह है, पर इसका घनत्व सबसे ज्यादा है| सोडियम (Na) इकट्ठा करने के लिए इस ग्रह पर जाइए|');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -144,11 +150,12 @@
             myTable = myTable + '<td>0.39 खगोलीय इकाई</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('गलत जवाब|');
                     $('.popup-small-content').html('<p>यह दूसरा संकेत देखिए|<br>यह ग्रह सूर्य के सबसे नजदीक है और इसलिए इसकी परिक्रमण गति सभी ग्रहों से ज्यादा है| फिर से कोशिश कीजिए|</p><p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>बुध हमारे सौर मंडल का सबसे अंदरूनी ग्रह है जिस कारण से इसकी परिक्रमण गति सभी ग्रहों से ज्यादा है| यह नंगी आंखों से दिखाई देता है, पर क्योंकि यह सूर्य के बहुत करीब है, इसलिए यह केवल सूर्योदय से ठीक पहले या सूर्यास्त के ठीक बाद ही दिखाई देता है| यह सौर मंडल में सबसे छोटा ग्रह है और सभी ग्रहों में इसका द्रव्यमान सबसे कम है।</p>';
@@ -156,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -165,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>बुध हमारे सौर मंडल का सबसे अंदरूनी ग्रह है जिस कारण से इसकी परिक्रमण गति सभी ग्रहों से ज्यादा है| यह नंगी आंखों से दिखाई देता है, पर क्योंकि यह सूर्य के बहुत करीब है, इसलिए यह केवल सूर्योदय से ठीक पहले या सूर्यास्त के ठीक बाद ही दिखाई देता है| यह सौर मंडल में सबसे छोटा ग्रह है और सभी ग्रहों में इसका द्रव्यमान सबसे कम है।</p>';
@@ -172,12 +181,16 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('clue6.html', '_self');
             }
         });

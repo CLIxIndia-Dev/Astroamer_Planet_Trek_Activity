@@ -119,11 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     var answer = 'Venus';
     var mytube = 'co2';
+    var qid = 9;
     localStorage.setItem("planet-score9", '0');
+    var lng = 'te';
     $(function() {
+        planet.readData();
+        planet.addQuestion('ఈ గ్రహం యొక్క భ్రమణ అవధి దీని చుట్టూ తిరిగే అవధి కన్నా ఎక్కువ. ఇది ఒక మబ్బులో కప్పబడి ఉంటుంది మరియు అత్యంత వేడిగా ఉండే గ్రహం. కార్బన్ డయాక్సైడ్ (CO2)సేకరించడానికి ఈ గ్రహాన్ని సందర్శించండి.');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -144,11 +150,12 @@
             myTable = myTable + '<td>0.72 ఎయు</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('అది సరియైనది కాదు.');
                     $('.popup-small-content').html('<p>ఇక్కడ ఇంకొక ఆధారం ఉన్నది.<br>ససూర్యోదయానికి ముందు లో లేదా సాయంత్రం కనిపించే ఈ గ్రహాన్ని ఉదయ తార లేదా సాయంత్రం తార అని కూడా అంటారు. మళ్లీ ప్రయత్నించండి.</p><p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('అది సరియైనది.');
                     myhtml = '<p>శుక్రుని పైన ఉన్న దట్టమైన మేఘం వేడిని సంగ్రహిస్తుంది మరియు సూర్యుని నుండి రెండవ గ్రహం అయినప్పటికీ దీనిని అత్యంత వేడి గ్రహంగా చేస్తుంది. శుక్రుడు లోపలగా ఉన్న గ్రహం కావున, మీరు దీని దశలను చంద్రుడి దశల లాగా చూడవచ్చు.</p><p>సూర్యోదయానికి ముందు లో లేదా సాయంత్రం కనిపించే ఈ గ్రహాన్ని ఉదయ తార లేదా సాయంత్రం తార అని కూడా అంటారు.</p>';
@@ -156,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -165,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('అది సరియైనది.');
                     myhtml = '<p>శుక్రుని పైన ఉన్న దట్టమైన మేఘం వేడిని సంగ్రహిస్తుంది మరియు సూర్యుని నుండి రెండవ గ్రహం అయినప్పటికీ దీనిని అత్యంత వేడి గ్రహంగా చేస్తుంది. శుక్రుడు లోపలగా ఉన్న గ్రహం కావున, మీరు దీని దశలను చంద్రుడి దశల లాగా చూడవచ్చు.</p><p>సూర్యోదయానికి ముందు లో లేదా సాయంత్రం కనిపించే ఈ గ్రహాన్ని ఉదయ తార లేదా సాయంత్రం తార అని కూడా అంటారు.</p>';
@@ -172,12 +181,16 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('clue10.html', '_self');
             }
         });

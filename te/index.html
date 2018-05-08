@@ -21,11 +21,11 @@
 
             <div class="intro-content1 c-white divPos">
                 <p>ఈ కార్యకలాపం యొక్క నియమాలు చదవడానికి <strong>నియమాలు </strong>.</p>
-                <p>బటన్‌ని క్లిక్ చేయండి.  తరువాత, ప్రారంభించడానికి, స్టార్ట్<strong>క్లిక్ చేయండి</strong>.</p>
+                <p>బటన్‌ని క్లిక్ చేయండి. తరువాత, ప్రారంభించడానికి, స్టార్ట్<strong>క్లిక్ చేయండి</strong>.</p>
             </div>
 
             <div class="rules-btn divPos"></div>
-            <a href="clue1.html" target="_self">
+            <a onclick="start();">
                 <div class="start-btn divPos"></div>
             </a>
 
@@ -37,7 +37,7 @@
                 <div class="rules-content c-blue">
                     <ul>
                         <li>మీకు 10 ఆధారాలు, ఒకటి ఒకసారి ఇవ్వబడుతుంది.</li>
-                        <li>ఒక్కో ఆధారం జాగ్రత్తగా చదవండి మరియు ఇది  గ్రహం  వర్ణిస్తుందో గుర్తించండి.</li>
+                        <li>ఒక్కో ఆధారం జాగ్రత్తగా చదవండి మరియు ఇది గ్రహం వర్ణిస్తుందో గుర్తించండి.</li>
                         <li>సరైన గ్రహం క్లిక్ చేయండిసబ్మ మరియు సబ్మిట్ క్లిక్ చేయండి</li>
                         <li>మీరు సరిగ్గా జవాబిస్తే, మీరు పొందవచ్చు ఒక మూలకం లేదా సమ్మేళనం.</li>
                         <li>మీరు కనుగొనే అంశాలను, మెరుగైన అవకాశాలు గెలుచుకోవాలి.</li>
@@ -54,6 +54,8 @@
 </body>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
+<script src="../scripts/planet.js"></script>
+<script src="../scripts/cookie.js"></script>
 <script>
     $(function() {
         var myscore = 0;
@@ -75,8 +77,12 @@
         $('.close-btn').click(function() {
             $('.rules-container').css('display', 'none');
         });
-
+        setuserdetail();
     });
+    function start() {
+        planet.start('te');
+        window.location.href = "clue1.html";
+    }
 
 </script>
 

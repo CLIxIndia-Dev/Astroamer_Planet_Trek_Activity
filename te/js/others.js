@@ -1,8 +1,19 @@
 var curPlanet = '';
-var attempt = 0;
+var playattempt = 0;
 var oldPlanet = '';
 getCap();
 $(function () {
+    $(document)[0].oncontextmenu = function () {
+        return false;
+    }
+    $(document).mousedown(function (e) {
+        if (e.button == 2) {
+            alert('Sorry, this functionality is disabled!');
+            return false;
+        } else {
+            return true;
+        }
+    });
     $('.rules-btn1').click(function () {
         $('.rules-container').css('display', 'block');
     });
@@ -19,7 +30,7 @@ $(function () {
         oldPlanet = curPlanet;
     });
     $('.close-btn-popup').click(function () {
-        if (attempt == 1) {
+        if (playattempt == 1) {
             if (curPlanet != answer) {
                 $('#planet-' + oldPlanet).attr('src', 'common/PLANETS/' + oldPlanet + '.png');
             } else {

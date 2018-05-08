@@ -119,11 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     var answer = 'Mars';
     var mytube = 'fe2o3';
+    var qid = 7;
     localStorage.setItem("planet-score7", '0');
+    var lng = 'en';
     $(function() {
+        planet.readData();
+        planet.addQuestion('इस ग्रह के वायुमंडल और सतह का अध्ययन करने के लिए भारतीय अंतरिक्ष अनुसंधान संगठन (इसरो) का एक कृत्रिम उपग्रह इसके चक्कर लगा रहा है| आयरन ऑक्साइड (Fe2O3) इकट्ठा करने के लिए इस ग्रह पर जाइए|');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -144,11 +150,12 @@
             myTable = myTable + '<td>1.52 खगोलीय इकाई</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('गलत जवाब|');
                     $('.popup-small-content').html('<p>यह दूसरा संकेत देखिए|<br>नंगी आंखों से देखने पर यह ग्रह अपनी सतह पर मौजूद आयरन ऑक्साइड की वजह से लाल दिखता है|<br>फिर से कोशिश कीजिए|</p><p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>मंगल सूर्य से चौथा ग्रह है और नंगी आंखों से दिख जाता है| यह ‘लाल ग्रह’ भी कहा जाता है क्योंकि इसकी सतह पर मौजूद आयरन ऑक्साइड की वजह से यह लाल दिखता है|</p>';
@@ -156,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -165,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('सही जवाब|');
                     myhtml = '<p>मंगल सूर्य से चौथा ग्रह है और नंगी आंखों से दिख जाता है| यह ‘लाल ग्रह’ भी कहा जाता है क्योंकि इसकी सतह पर मौजूद आयरन ऑक्साइड की वजह से यह लाल दिखता है|</p>';
@@ -172,12 +181,16 @@
                     myhtml = myhtml + '<p class="c-white">आगे जाने के लिए X पर क्लिक करें।</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('clue8.html', '_self');
             }
         });

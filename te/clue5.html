@@ -19,7 +19,7 @@
                 <div class="rules-content c-blue">
                     <ul>
                         <li>మీకు 10 ఆధారాలు, ఒకటి ఒకసారి ఇవ్వబడుతుంది.</li>
-                        <li>ఒక్కో ఆధారం జాగ్రత్తగా చదవండి మరియు ఇది  గ్రహం  వర్ణిస్తుందో గుర్తించండి.</li>
+                        <li>ఒక్కో ఆధారం జాగ్రత్తగా చదవండి మరియు ఇది గ్రహం వర్ణిస్తుందో గుర్తించండి.</li>
                         <li>సరైన గ్రహం క్లిక్ చేయండిసబ్మ మరియు సబ్మిట్ క్లిక్ చేయండి</li>
                         <li>మీరు సరిగ్గా జవాబిస్తే, మీరు పొందవచ్చు ఒక మూలకం లేదా సమ్మేళనం.</li>
                         <li>మీరు కనుగొనే అంశాలను, మెరుగైన అవకాశాలు గెలుచుకోవాలి.</li>
@@ -119,11 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/cookie.js"></script>
 <script>
     var answer = 'Mercury';
     var mytube = 'na';
+    var qid = 5;
     localStorage.setItem("planet-score5", '0');
+    var lng = 'te';
     $(function() {
+        planet.readData();
+        planet.addQuestion('అన్ని గ్రహాలలో ఇది అతి చిన్నదైనప్పటికీ, దీని సాంద్రత అత్యధికంగా ఉంటుంది.సోడియం (Na)సేకరించడానికి ఈ గ్రహాన్ని సందర్శించండి.');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -144,11 +150,12 @@
             myTable = myTable + '<td>0.39 ఎయు</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('అది సరియైనది కాదు.');
                     $('.popup-small-content').html('<p>ఇక్కడ ఇంకొక ఆధారం ఉన్నది.<br>ఈ గ్రహం సూర్యుడికి సమీపంగా ఉన్నది మరియు ఏదైనా ఇతర గ్రహం కన్నా వేగంగా ఉంటుంది.</p><p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('అది సరియైనది.');
                     myhtml = '<p>మన సౌర కుటుంబంలో అత్యంత లోపల  ఉండే గ్రహం బుధ గ్రహం, అందుకే ఇది అన్ని గ్రహాలకన్నా అతి వేగంగా చుట్టూ తిరుగుతుంది. ఇది మన కంటికి కనిపిస్తుంది, కానీ ఇది ఎప్పుడూ సూర్యుడికి సమీపంగా ఉండటం వలన, ఇది సూర్యోదయానికి ముందు లేదా సూర్యాస్తమయం తరువాత మాత్రమే కనిపిస్తుంది.  ఇది సౌర కుటుంబంలో అతి చిన్నని మరియు అన్ని గ్రహాలు కన్నా అతి తక్కువ భారం కలిగి ఉంది</p>';
@@ -156,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -165,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('అది సరియైనది.');
                     myhtml = '<p>మన సౌర కుటుంబంలో అత్యంత లోపల  ఉండే గ్రహం బుధ గ్రహం, అందుకే ఇది అన్ని గ్రహాలకన్నా అతి వేగంగా చుట్టూ తిరుగుతుంది. ఇది మన కంటికి కనిపిస్తుంది, కానీ ఇది ఎప్పుడూ సూర్యుడికి సమీపంగా ఉండటం వలన, ఇది సూర్యోదయానికి ముందు లేదా సూర్యాస్తమయం తరువాత మాత్రమే కనిపిస్తుంది.  ఇది సౌర కుటుంబంలో అతి చిన్నని మరియు అన్ని గ్రహాలు కన్నా అతి తక్కువ భారం కలిగి ఉంది</p>';
@@ -172,12 +181,16 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('clue6.html', '_self');
             }
         });

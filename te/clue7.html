@@ -119,11 +119,17 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/others.js"></script>
+<script src="../scripts/planet.js"></script>
+<script src="../scripts/cookie.js"></script>
 <script>
     var answer = 'Mars';
     var mytube = 'fe2o3';
+    var qid = 7;
     localStorage.setItem("planet-score7", '0');
+    var lng = 'te';
     $(function() {
+        planet.readData();
+        planet.addQuestion('భారత అంతరిక్ష పరిశోధనా సంస్థ (ఐ ఎస్ ఆర్ ఒ) యొక్క ప్రోబ్ ఈ గ్రహాన్ని, దాని వాతావరణం మరియు దాని ఉపరితలాన్ని అధ్యయనం చేయడానికి ఈ గ్రహం కక్ష్యలో ఉంది. ఐరన్ ఆక్సైడ్ (Fe2O3) సేకరించడానికి ఈ గ్రాహాన్ని సందర్శించండి.');
         $('.submit-btn').click(function() {
             myTable = '';
             myTable = myTable + '<table width="100%" border="0" cellspacing="0" cellpadding="0" class="answerTable c-blue">';
@@ -144,11 +150,12 @@
             myTable = myTable + '<td>1.52 ఎయు</td>';
             myTable = myTable + '</tr>';
             myTable = myTable + '</table>';
-            if (attempt == 0) {
+            if (playattempt == 0) {
                 if (curPlanet != answer) {
                     $('.popup-small-head').html('అది సరియైనది కాదు.');
                     $('.popup-small-content').html('<p>ఇక్కడ ఇంకొక ఆధారం ఉన్నది.<br>Whమన కంటితో చూసినప్పుడు, ఈ గ్రహం ఎరుపుగా కనిపిస్తుంది ఎందుకంటే దీని ఉపరితలంలో ఐరన్ ఆక్సైడ్ ఉన్నది. మళ్లీ ప్రయత్నించండి.</p><p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>');
                     $('.feedback-popup-small').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('అది సరియైనది.');
                     myhtml = '<p>సూర్యుడి నుండి నాల్గవ గ్రహం అంగారక గ్రహం మరియు ఇది మన కంటికి కనిపిస్తుంది. దీనిని అరుణ గ్రహం అంటారు ఎందుకంటే  దీని ఉపరితలంలో ఉన్న ఐరన్ ఆక్సైడ్ దీనికి ఎరుపు రూపాన్ని ఇస్తుంది.</p>';
@@ -156,6 +163,7 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             } else {
                 if (curPlanet != answer) {
@@ -165,6 +173,7 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, false, playattempt);
                 } else {
                     $('.popup-head').html('అది సరియైనది.');
                     myhtml = '<p>సూర్యుడి నుండి నాల్గవ గ్రహం అంగారక గ్రహం మరియు ఇది మన కంటికి కనిపిస్తుంది. దీనిని అరుణ గ్రహం అంటారు ఎందుకంటే  దీని ఉపరితలంలో ఉన్న ఐరన్ ఆక్సైడ్ దీనికి ఎరుపు రూపాన్ని ఇస్తుంది.</p>';
@@ -172,12 +181,16 @@
                     myhtml = myhtml + '<p class="c-white">కొనసాగడానికి X క్లిక్ చేయండి.</p>';
                     $('.popup-content').html(myhtml);
                     $('.feedback-popup').css('display', 'block');
+                    planet.addAnswer(curPlanet, true, playattempt);
                 }
             }
-            attempt++;
+            playattempt++;
         });
         $('.next-btn').click(function() {
             if ($(this).css('opacity') == 1) {
+                myData.appData.attempt[qid - 1].clue_endTime = timeStamp();
+                myData.appData.attempt[qid - 1].createdAt = timeStamp();
+                planet.save();
                 window.open('clue8.html', '_self');
             }
         });
